@@ -8,6 +8,8 @@
     import TextInput from '@/Components/TextInput.vue';
     //import route from 'vendor/tightenco/ziggy/src/js';
 
+    import { VueReCaptcha, useReCaptcha  } from 'vue-recaptcha-v3';
+    import { onMounted } from 'vue';
 
     const form = useForm({
         name: '',
@@ -22,13 +24,18 @@
             onFinish: () => form.reset('password', 'password_confirmation'),
         });
     };
-
+    const captcha = useReCaptcha()
+    onMounted(() => {
+    captcha.executeRecaptcha()
+    })
 </script>
 <script>
-//    import { VueRecaptcha } from 'vue-recaptcha';
-
+    // import { VueRecaptcha } from 'vue-recaptcha';
     export default {
-        
+
+    components: {
+        VueReCaptcha,
+    },
     data() {
         return {
         showPassword: false,
@@ -206,12 +213,16 @@
                                                         <InputError class="mt-2" :message="form.errors.terms" />
                                                     </InputLabel>
                                                 </div>
-                                            <vue-recaptcha
+                                                <VueReCaptcha 
+                                                    :sitekey="$page.props.recaptchav3_sitekey" 
+                                                    @verify="onCaptchaVerify"
+                                                    />
+                                            <!-- <vue-recaptcha
                                                 :sitekey="$page.props.recaptchav2_sitekey"
                                                 :load-recaptcha-script="true"
                                                 @verify="onCaptchaVerify"
                                                 @error="handleError"
-                                            ></vue-recaptcha>
+                                            ></vue-recaptcha> -->
                                             <span
                                               v-if="recaptcha_error"
                                               class="error-message"

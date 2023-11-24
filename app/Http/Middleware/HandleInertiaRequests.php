@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             //
-            'recaptchav2_sitekey' => config('recaptchav2.sitekey'),
+            'recaptchav3_sitekey' => config('recaptchav3.sitekey'),
         ]);
     }
 }

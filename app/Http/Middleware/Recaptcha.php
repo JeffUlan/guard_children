@@ -19,7 +19,7 @@ class Recaptcha
      */
     public function handle($request, Closure $next)
     {
-        $response = (new GoogleRecaptcha(config('recaptchav2.secret')))
+        $response = (new GoogleRecaptcha(config('recaptchav3.secret')))
             ->verify($request->input('g-recaptcha-response'), $request->ip());
 
         if (!$response->isSuccess()) {
